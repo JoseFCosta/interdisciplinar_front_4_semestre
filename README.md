@@ -1,50 +1,121 @@
-# Welcome to your Expo app 👋
+# 📲 Projeto Contábil Mobile
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+Este é um aplicativo mobile desenvolvido com **React Native (Expo CLI Bare Workflow)** voltado para a área contábil. O objetivo principal é realizar e visualizar movimentações contábeis, mesmo em modo **offline**, com envio posterior ao backend.
 
-## Get started
+---
 
-1. Install dependencies
+## 🚀 Tecnologias Utilizadas
 
-   ```bash
-   npm install
-   ```
+- [React Native](https://reactnative.dev/)
+- [Expo CLI (Bare Workflow)](https://docs.expo.dev/bare/using-expo-client/)
+- [TypeScript](https://www.typescriptlang.org/)
+- [AsyncStorage](https://react-native-async-storage.github.io/async-storage/)
+- [React Native Paper](https://callstack.github.io/react-native-paper/)
+- [axios](https://axios-http.com/)
+- [NetInfo](https://github.com/react-native-netinfo/react-native-netinfo)
+- [DropDownPicker](https://github.com/hossein-zare/react-native-dropdown-picker)
 
-2. Start the app
+---
 
-   ```bash
-   npx expo start
-   ```
+## 📂 Estrutura do Projeto
 
-In the output, you'll find options to open the app in a
+```plaintext
+📁 auth
+ └── Login.tsx            → Tela de autenticação (admin ou via API)
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
+📁 tabs
+ ├── homeScreen.tsx       → Tela inicial do app
+ ├── FormScreen.tsx       → Cadastro de movimentações contábeis
+ └── SavedDataScreen.tsx  → Visualização e envio dos dados salvos localmente
 
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
+```
+## 🔐 Login
 
-## Get a fresh project
+Login offline (modo admin):
 
-When you're ready, run:
+- **Email:** `admin@fasipe.com`  
+- **Senha:** `senhaAdm`
+
+Login via API:
+
+- Requisição a `/login` com os campos:
+  - `LOGUSUARIO`
+  - `SENHAUSUA`
+
+---
+
+## 🧾 Cadastro de Movimentações
+
+Formulário com os seguintes campos:
+
+- Plano de Contas (**obrigatório**)
+- Ordem de Compra (**obrigatório**)
+- Item da Venda (**opcional**)
+- Valor Débito (**obrigatório**)
+- Valor Crédito (**obrigatório**)
+
+Funcionalidades:
+
+- 🎯 Máscara de moeda no formato **R$**
+- ✅ Validação de campos obrigatórios
+- 💾 Salvamento automático em **AsyncStorage**
+- 📉 Limite de 3 entradas offline
+- 🔁 Envio automático ao backend quando conectado
+
+---
+
+## 💾 Offline e Sincronização
+
+- Se o dispositivo estiver **offline**, os dados do formulário são salvos em `AsyncStorage`.
+- Há uma tela dedicada para visualizar os dados salvos localmente, com as opções de:
+  - 🗑 **Excluir individualmente**
+  - 📤 **Enviar todos os dados para o servidor** (`/movimentacoes`)
+
+---
+
+## 🏠 Tela Inicial (Home)
+
+- Verifica o **status da conexão** com a internet.
+- Exibe uma saudação ao usuário.
+- Mostra uma descrição resumida do projeto.
+- Permite o **logout**, que remove os dados locais de autenticação.
+
+---
+
+## 🌐 Endpoints de API utilizados
+
+- `POST /login`
+- `GET /planoconta`
+- `GET /ordemcompra`
+- `GET /itemvenda`
+- `POST /movimentacoes`
+
+> 📍 **Endereço base da API:** `http://160.20.22.99:5280`
+
+---
+
+## ✅ Funcionalidades Concluídas
+
+- [x] Login offline e online
+- [x] Tela de boas-vindas com status da rede
+- [x] Cadastro de movimentações com persistência offline
+- [x] Listagem dos dados locais
+- [x] Envio manual dos dados salvos localmente
+- [x] Validação e formatação de valores
+
+---
+
+## 🧠 Considerações
+
+Este projeto foi idealizado para funcionar mesmo em situações com **baixa ou nenhuma conectividade**, garantindo que os dados possam ser armazenados localmente e enviados posteriormente ao servidor.
+
+---
+
+## 🛠️ Instalação e Execução
 
 ```bash
-npm run reset-project
+git clone https://github.com/seu-usuario/seu-repo.git
+cd seu-repo
+npm install
+npx expo start
 ```
-
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
-
-## Learn more
-
-To learn more about developing your project with Expo, look at the following resources:
-
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
-
-## Join the community
-
-Join our community of developers creating universal apps.
-
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
